@@ -9,7 +9,7 @@ import java.util.Random;
  * train) and then to measure their performance (using test).
  */
 public class RandomSearch {
-    public static void RandomSearch() throws IOException {
+    public RandomSearch() throws IOException {
         var training_problem = new DemandPrediction("train");
         var bounds = DemandPrediction.bounds();
         var r = new Random();
@@ -38,7 +38,7 @@ public class RandomSearch {
                 "found while training: %f%n", test_error);
     }
 
-    public static double[] random_parameters(double[][] bounds, Random r){
+    public static double[] random_parameters(double[][] bounds, Random r){  //element of random search
         var parameters = new double[bounds.length];
         for (int j = 0; j < bounds.length; j++) {
             parameters[j] = bounds[j][0] + r.nextDouble() * (bounds[j][1] - bounds[j][0]);
