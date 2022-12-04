@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import demandPrediction;
 
 /**
  * For the baseline method, I will be using the evolutionary algorithm I created for the labs
@@ -15,9 +16,12 @@ public class BaselineMethod {
     static ArrayList<ArrayList<String>> candidates;
     static ArrayList<Double> candidateFitness;
     static ArrayList<ArrayList<String>> survivors;
+    static DemandPrediction train_problem;
 
     public BaselineMethod() throws IOException {
-        DemandPrediction train_problem = new DemandPrediction("train");
+        survivors = new ArrayList<>();
+        train_problem = new DemandPrediction("train");
+
     }
 
     /**
@@ -39,7 +43,7 @@ public class BaselineMethod {
      * @param fitArray list to put the results into
      */
     public static void evaluation(ArrayList<ArrayList<String>> forEval, ArrayList<Double> fitArray){
-        for (ArrayList<String> candidate: forEval){ fitArray.add(getCostOfRoute(candidate)); } //ATTENTION
+        for (ArrayList<String> candidate: forEval){ fitArray.add(train_problem.evaluate(candidate)); } //ATTENTION
     }
 
 
@@ -136,7 +140,7 @@ public class BaselineMethod {
         int j = rand.nextInt(i+1, locations.size()-1);
 
         //replace existing child with mutated child
-        children.add(children.indexOf(tour), twoOptSwap(tour,i,j));
+        children.set(children.indexOf(tour), twoOptSwap(tour,i,j));
     }
     public static ArrayList<String> twoOptSwap(ArrayList<String> tour, int i, int j){
         ArrayList<String> swapped = new ArrayList<>();
@@ -163,7 +167,6 @@ public class BaselineMethod {
      * @param survivor tour to be evaluated
      */
     public static void survivorSelection(ArrayList<String> survivor){
-        survivors = new ArrayList<>();
         //children survive, replace the parents
         if (children.contains(survivor)){ survivors.add(survivor); }
     }
@@ -185,6 +188,49 @@ public class BaselineMethod {
         survivors.clear();
 
     }
+    public static void evoAlgorithm(){
+        children = new ArrayList<>();
+        parents = new ArrayList<>();
+        fitness = new ArrayList<>();
+        survivors = new ArrayList<>();
+
+        initializePopulation(10);
+        evaluation(population, fitness);
+
+        long start = System.currentTimeMillis(); //current system time
+        long end = start + 2 * 1000L;           //seconds - 2
+
+        while (System.currentTimeMillis() < end) {
+            // picks parents
+            tournamentSelection(2,100);
+
+            int pairsOfChildren = 10; //input half the number of children required
+            for(int i =1; i<=pairsOfChildren;i++){
+                //produces two children
+                recombination();
+            }
+
+            //mutate all offspring created
+            for(int i =0; i<children.size();i++){
+                swapMutation(children.get(i));
+                survivorSelection(children.get(i)); //all children survive
+            }
+
+            nextGenSetup();
+        }
+
+    }
+    //evolutionary alg method
+    //initialise population with random candidate solutions
+    //Evaluate each candidate with cost function
+    //repeat until termination cond is satisfied
+    //select parents
+    //recombine pairs of parents
+    //mutate the resulting offspring
+    //evaluate new candidates
+    //select individuals for next generation
+    //End
+    //END
 
 
 

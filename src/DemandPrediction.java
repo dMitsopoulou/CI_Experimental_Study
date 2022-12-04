@@ -26,6 +26,8 @@ public class DemandPrediction {
      * @return Vector b such that b[i][0] is the minimum permissible value of the
      * ith solution component and b[i][1] is the maximum.
      */
+
+    /*
     public static double[][] bounds() {
         double[][] bnds = new double[N_PARAMETERS][2];
         double[] dim_bnd = {-100.0,100.0};
@@ -34,19 +36,32 @@ public class DemandPrediction {
         return bnds;
     }
 
+     */
+
+    /**
+     * Sets a list of lower and upper bounds to dictate the problem's feasible region
+     * @return arrayList of 2 bounds
+     */
+    public static ArrayList<Double> bounds(){
+        //ArrayList<ArrayList<Double>> bnds = new ArrayList<>();
+        ArrayList<Double> bnds = new ArrayList<>(Arrays.asList(-100.0,100.0));
+        //for(int i = 0;i<N_PARAMETERS; i++){bnds.add(dim_bnd);}
+        return bnds;
+    }
+
     /**
      * Check whether the function parameters (weights) lie within the
      * problem's feasible region.
      * There should be the correct number of weights for the predictor function.
      * Each weight should lie within the range specified by the bounds.
+     * @param parameters a list of the problem parameters
      */
-    public boolean is_valid(double[] parameters) {
-        if(parameters.length != N_PARAMETERS) return false;
+    public boolean is_valid(ArrayList<Double> parameters) {
+        if(parameters.size() != N_PARAMETERS) return false;
         //All weights lie within the bounds.
-        double[][] b = bounds();
+        ArrayList<Double> b = bounds();
         for(int i = 0; i<N_PARAMETERS; i++)
-            if(parameters[i] < b[i][0] || parameters[i] > b[i][1] )
-                return false;
+            if(parameters.get(i) < b.get(0) || parameters.get(i) > b.get(1)) return false;
         return true;
     }
 
@@ -58,20 +73,21 @@ public class DemandPrediction {
      * @return The mean absolute error of the predictions on the selected
      * dataset.
      */
-    public double evaluate(double[] parameters) {
-        double abs_error = 0.0;
+    public double evaluate(ArrayList<Double> parameters) {
+        double absolute_error = 0.0;
         for(int i = 0; i < X.size(); i++){
             double y_pred = predict(X.get(i),parameters);
-            abs_error += Math.abs(y.get(i)-y_pred);
+            absolute_error += Math.abs(y.get(i)-y_pred);
         }
-        abs_error /= X.size();
-        return abs_error;
+        absolute_error /= X.size();
+        return absolute_error;
     }
 
-    private List<double[]> X;
+    private List<ArrayList<Double>> X;
     private List<Double> y;
 
     private void load_dataset(String file) throws IOException {
+        ArrayList<Double> x = new ArrayList<>();
         X = new ArrayList<>();
         y = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -83,10 +99,13 @@ public class DemandPrediction {
                         "a line in the dataset contained the wrong number of" +
                         "entries.");
             }
-            double[] x = new double[N_DEMAND_INDICATORS];
-            for(int i = 1; i <= N_DEMAND_INDICATORS; i++){ x[i-1] = Double.parseDouble(line_data[i]); }
-            X.add(x);
+
             y.add(Double.parseDouble(line_data[0]));
+            for(int i = 1; i <= N_DEMAND_INDICATORS; i++){
+                x.add(Double.parseDouble(line_data[i]));
+            }
+            X.add(x);
+
         }
     }
 
@@ -95,12 +114,10 @@ public class DemandPrediction {
      * replace this with something more complex, but will likely have to change
      * the form of the parameters array as well.
      */
-    private static double predict(double[] demand_indicators, double[] parameters){
-        double prediction = parameters[0];
+    private static double predict(ArrayList<Double> demand_indicators, ArrayList<Double> parameters){
+        double prediction = parameters.get(0);
 
-        for (int i = 1; i < N_PARAMETERS ; i++) {
-            prediction += demand_indicators[i - 1] * parameters[i];
-        }
+        for (int i = 1; i < N_PARAMETERS ; i++) { prediction += demand_indicators.get(i-1) * parameters.get(i);}
 
         return prediction;
     }
