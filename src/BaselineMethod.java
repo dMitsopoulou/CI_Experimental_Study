@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import demandPrediction;
 
 /**
  * For the baseline method, I will be using the evolutionary algorithm I created for the labs
@@ -17,10 +16,14 @@ public class BaselineMethod {
     static ArrayList<Double> candidateFitness;
     static ArrayList<ArrayList<String>> survivors;
     static DemandPrediction train_problem;
+    static RandomSearch rand_search;
 
     public BaselineMethod() throws IOException {
         survivors = new ArrayList<>();
         train_problem = new DemandPrediction("train");
+        rand_search = new RandomSearch();
+
+        evoAlgorithm();
 
     }
 
