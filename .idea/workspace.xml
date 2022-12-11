@@ -4,14 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d641669-9c27-4b12-a710-8da57ea7d1f9" name="Changes" comment="Corrected baselineMethod&#10;converted arrays to arrayLists in RandomSearch">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/apache_commons_math3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NovelMethod.java" afterDir="false" />
+    <list default="true" id="4d641669-9c27-4b12-a710-8da57ea7d1f9" name="Changes" comment="starting NovelMethod">
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CS3CI_Cwk_2022.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CS3CI_Cwk_2022.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BaselineMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BaselineMethod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DemandPrediction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DemandPrediction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RandomSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RandomSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CS3CI_Cwk_2022/DemandPrediction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CS3CI_Cwk_2022/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BaselineMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BaselineMethod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DemandPrediction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DemandPrediction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NovelMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NovelMethod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RandomSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RandomSearch.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +30,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="baselineMethod" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -52,12 +61,32 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Libraries",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.java.Main" />
+      <module name="CS3CI_Cwk_2022" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -78,7 +107,8 @@
       <workItem from="1670412565263" duration="587000" />
       <workItem from="1670416176798" duration="594000" />
       <workItem from="1670689156311" duration="916000" />
-      <workItem from="1670781582941" duration="1375000" />
+      <workItem from="1670781582941" duration="2206000" />
+      <workItem from="1670790123457" duration="8819000" />
     </task>
     <task id="LOCAL-00001" summary="Start">
       <created>1669671929340</created>
@@ -101,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670201828792</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="starting NovelMethod">
+      <created>1670788755687</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1670788755687</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -122,6 +159,17 @@
     <MESSAGE value="Start" />
     <MESSAGE value="Corrected baselineMethod&#10;converted arrays to arrayLists in DemandPrediction" />
     <MESSAGE value="Corrected baselineMethod&#10;converted arrays to arrayLists in RandomSearch" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected baselineMethod&#10;converted arrays to arrayLists in RandomSearch" />
+    <MESSAGE value="starting NovelMethod" />
+    <option name="LAST_COMMIT_MESSAGE" value="starting NovelMethod" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

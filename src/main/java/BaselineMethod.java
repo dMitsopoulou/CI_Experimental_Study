@@ -1,14 +1,15 @@
+package main.java;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import org.apache.commons.math3.distribution.*;
+
 
 /**
  * For the baseline method, I will be using the evolutionary algorithm I created for the labs
  */
 public class BaselineMethod {
-    static ArrayList<Double> parameters; //past locations
     static ArrayList<Double> randomised;
     private static ArrayList<Double> bounds;
     private static Random r;
@@ -20,6 +21,7 @@ public class BaselineMethod {
     static ArrayList<Double> candidateFitness;
     static ArrayList<ArrayList<Double>> survivors;
     static DemandPrediction train_problem;
+    static int generations = 0;
 
     public BaselineMethod() throws IOException {
         bounds = new ArrayList<>(DemandPrediction.bounds());
@@ -34,7 +36,8 @@ public class BaselineMethod {
     public static ArrayList<Double> random_parameters(){  //element of random search
         randomised = new ArrayList<>();
         for (int j = 0; j < 14; j++) {      //14 parameters
-            randomised.add(bounds.get(0) + r.nextDouble() * (bounds.get(1) - bounds.get(0)));
+            //randomised.add(bounds.get(0) + r.nextDouble() * (bounds.get(1) - bounds.get(0)));
+            randomised.add(r.nextDouble(-100.0, 100.0));
         }
         return randomised;
     }
@@ -116,28 +119,19 @@ public class BaselineMethod {
         int cut = rand.nextInt(parentOne.size()-2);
 
         //first part of child one
-        for (int i = 0; i<=cut; i++) {
-            child1.add(parentOne.get(i));
-        }
+        for (int i = 0; i<=cut; i++) { child1.add(parentOne.get(i));}
 
         //first part of child 2
-        for (int i = 0; i<=cut; i++) {
-            child2.add(parentTwo.get(i));
-        }
+        for (int i = 0; i<=cut; i++) { child2.add(parentTwo.get(i)); }
 
         //second part of child one
-        for (int i = cut+1; i < parentTwo.size(); i++){
-            child1.add(parentTwo.get(i));
-        }
+        for (int i = cut+1; i < parentTwo.size(); i++){ child1.add(parentTwo.get(i)); }
 
         //second part of child 2
-        for (int i = cut+1; i < parentOne.size(); i++){
-            child2.add(parentOne.get(i));
-        }
+        for (int i = cut+1; i < parentOne.size(); i++){ child2.add(parentOne.get(i)); }
 
         children.add(child1);
         children.add(child2);
-
     }
 
     /**
@@ -146,8 +140,8 @@ public class BaselineMethod {
      */
     public static void swapMutation(ArrayList<Double> params){
         Random rand = new Random();
-        int i = rand.nextInt(parameters.size()-2);
-        int j = rand.nextInt(i+1, parameters.size()-1);
+        int i = rand.nextInt(params.size()-2);
+        int j = rand.nextInt(i+1, params.size()-1);
 
         //replace existing child with mutated child
         children.set(children.indexOf(params), twoOptSwap(params,i,j));
@@ -200,7 +194,20 @@ public class BaselineMethod {
     }
 
     /**
-     * The main body of the algorithm. Calls all of the above methods
+     * For the purpose of collecting data, returns the generation number and the best fitness
+     */
+    public static void collectStats(){
+        double bestFit;
+        bestFit = fitness.get(0);
+        for(Double fit: fitness){
+            if(fit < bestFit) bestFit = fit;
+        }
+        System.out.println("Gen:" + generations + "fitness:" + bestFit);
+
+    }
+
+    /**
+     * The main body of the algorithm. Calls all of the above methods in a sequence
      */
     public static void evoAlgorithm(){
         children = new ArrayList<>();
@@ -208,13 +215,16 @@ public class BaselineMethod {
         fitness = new ArrayList<>();
         survivors = new ArrayList<>();
 
-        initializePopulation(10);
+        initializePopulation(100);
         evaluation(population, fitness);
 
+        //use time as termination condition
         long start = System.currentTimeMillis(); //current system time
-        long end = start + 2 * 1000L;           //seconds - 2
+        long end = start + 10 * 1000L;           //seconds - 2
 
-        while (System.currentTimeMillis() < end) {
+        //while (System.currentTimeMillis() < end) {
+        while (generations <= 20){
+            generations++;
             // picks parents
             tournamentSelection(2,100);
 
@@ -233,18 +243,21 @@ public class BaselineMethod {
             nextGenSetup();
         }
 
+        for(ArrayList<Double> candidate: population) System.out.println(candidate);
+
     }
     //evolutionary alg method
-    //initialise population with random candidate solutions
-    //Evaluate each candidate with cost function
-    //repeat until termination cond is satisfied
-    //select parents
-    //recombine pairs of parents
-    //mutate the resulting offspring
-    //evaluate new candidates
-    //select individuals for next generation
+        //initialise population with random candidate solutions
+        //Evaluate each candidate with cost function
+        //repeat until termination cond is satisfied
+            //select parents
+            //recombine pairs of parents
+            //mutate the resulting offspring
+            //evaluate individuals
+            //select individuals for next generation
+        //End\
     //End
-    //END
+
 
 
 
