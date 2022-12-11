@@ -2,29 +2,41 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import org.apache.commons.math3.distribution.*;
 
 /**
  * For the baseline method, I will be using the evolutionary algorithm I created for the labs
  */
 public class BaselineMethod {
-    static ArrayList<String> locations; //representation rename!
-    static ArrayList<ArrayList<String>> population;
+    static ArrayList<Double> parameters; //past locations
+    static ArrayList<Double> randomised;
+    private static ArrayList<Double> bounds;
+    private static Random r;
+    static ArrayList<ArrayList<Double>> population;
     static ArrayList<Double> fitness;
-    static ArrayList<ArrayList<String>> parents;
-    static ArrayList<ArrayList<String>> children;
-    static ArrayList<ArrayList<String>> candidates;
+    static ArrayList<ArrayList<Double>> parents;
+    static ArrayList<ArrayList<Double>> children;
+    static ArrayList<ArrayList<Double>> candidates;
     static ArrayList<Double> candidateFitness;
-    static ArrayList<ArrayList<String>> survivors;
+    static ArrayList<ArrayList<Double>> survivors;
     static DemandPrediction train_problem;
-    static RandomSearch rand_search;
 
     public BaselineMethod() throws IOException {
-        survivors = new ArrayList<>();
+        bounds = new ArrayList<>(DemandPrediction.bounds());
+        r = new Random();
+
         train_problem = new DemandPrediction("train");
-        rand_search = new RandomSearch();
 
         evoAlgorithm();
 
+    }
+
+    public static ArrayList<Double> random_parameters(){  //element of random search
+        randomised = new ArrayList<>();
+        for (int j = 0; j < 14; j++) {      //14 parameters
+            randomised.add(bounds.get(0) + r.nextDouble() * (bounds.get(1) - bounds.get(0)));
+        }
+        return randomised;
     }
 
     /**
@@ -32,11 +44,8 @@ public class BaselineMethod {
      * @param size size of population
      */
     public static void initializePopulation(int size){
-        population = new ArrayList<ArrayList<String>>();
-
-        for (int i=0; i<size;i++){ population.add(randomRoutes()); } //ATTENTION
-
-        //return population;
+        population = new ArrayList<>();
+        for (int i=0; i<size;i++){ population.add(random_parameters()); } //ATTENTION
     }
 
 
@@ -45,8 +54,8 @@ public class BaselineMethod {
      * @param forEval list of candidates to be evaluated
      * @param fitArray list to put the results into
      */
-    public static void evaluation(ArrayList<ArrayList<String>> forEval, ArrayList<Double> fitArray){
-        for (ArrayList<String> candidate: forEval){ fitArray.add(train_problem.evaluate(candidate)); } //ATTENTION
+    public static void evaluation(ArrayList<ArrayList<Double>> forEval, ArrayList<Double> fitArray){
+        for (ArrayList<Double> candidate: forEval){ fitArray.add(train_problem.evaluate(candidate)); } //ATTENTION
     }
 
 
@@ -62,7 +71,7 @@ public class BaselineMethod {
         Random rand = new Random();
         int randNum;
         double bestFitness;
-        ArrayList<String> bestCandidate;
+        ArrayList<Double> bestCandidate;
 
         for(int j=0; j<parentSize;j++) {
 
@@ -96,14 +105,13 @@ public class BaselineMethod {
      * Adds the children into a global children array
      */
     public static void recombination(){
-        ArrayList<ArrayList<String>> crossedOver = new ArrayList<>();
-        ArrayList<String> child1 = new ArrayList<>();
-        ArrayList<String> child2 = new ArrayList<>();
+        ArrayList<Double> child1 = new ArrayList<>();
+        ArrayList<Double> child2 = new ArrayList<>();
         Random rand = new Random();
 
         //gets two random parents
-        ArrayList<String> parentOne = parents.get(rand.nextInt(parents.size()-1));
-        ArrayList<String> parentTwo = parents.get(rand.nextInt(parents.size()-1));
+        ArrayList<Double> parentOne = parents.get(rand.nextInt(parents.size()-1));
+        ArrayList<Double> parentTwo = parents.get(rand.nextInt(parents.size()-1));
 
         int cut = rand.nextInt(parentOne.size()-2);
 
@@ -130,24 +138,23 @@ public class BaselineMethod {
         children.add(child1);
         children.add(child2);
 
-        //return crossedOver;
     }
 
     /**
      * Mutates selected tour by swapping part of it
-     * @param tour sequence of cities
+     * @param params sequence of cities
      */
-    public static void swapMutation(ArrayList<String> tour){
+    public static void swapMutation(ArrayList<Double> params){
         Random rand = new Random();
-        int i = rand.nextInt(locations.size()-2);
-        int j = rand.nextInt(i+1, locations.size()-1);
+        int i = rand.nextInt(parameters.size()-2);
+        int j = rand.nextInt(i+1, parameters.size()-1);
 
         //replace existing child with mutated child
-        children.set(children.indexOf(tour), twoOptSwap(tour,i,j));
+        children.set(children.indexOf(params), twoOptSwap(params,i,j));
     }
-    public static ArrayList<String> twoOptSwap(ArrayList<String> tour, int i, int j){
-        ArrayList<String> swapped = new ArrayList<>();
-        ArrayList<String> finalTour = new ArrayList<>();
+    public static ArrayList<Double> twoOptSwap(ArrayList<Double> tour, int i, int j){
+        ArrayList<Double> swapped = new ArrayList<>();
+        ArrayList<Double> finalTour = new ArrayList<>();
 
         for (int x=i; x<=j;x++) {swapped.add(tour.get(x));}
         Collections.reverse(swapped);
@@ -169,7 +176,7 @@ public class BaselineMethod {
      * Selects survivors that make it to the next generation
      * @param survivor tour to be evaluated
      */
-    public static void survivorSelection(ArrayList<String> survivor){
+    public static void survivorSelection(ArrayList<Double> survivor){
         //children survive, replace the parents
         if (children.contains(survivor)){ survivors.add(survivor); }
     }
@@ -191,6 +198,10 @@ public class BaselineMethod {
         survivors.clear();
 
     }
+
+    /**
+     * The main body of the algorithm. Calls all of the above methods
+     */
     public static void evoAlgorithm(){
         children = new ArrayList<>();
         parents = new ArrayList<>();
@@ -207,7 +218,7 @@ public class BaselineMethod {
             // picks parents
             tournamentSelection(2,100);
 
-            int pairsOfChildren = 10; //input half the number of children required
+            int pairsOfChildren = 50; //input half the number of children required 50*2=100 children
             for(int i =1; i<=pairsOfChildren;i++){
                 //produces two children
                 recombination();

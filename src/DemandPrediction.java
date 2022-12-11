@@ -5,6 +5,8 @@ import java.util.*;
 
 /** Car price prediction problem */
 public class DemandPrediction {
+    private List<ArrayList<Double>> X;
+    private List<Double> y;
     public static final int N_DEMAND_INDICATORS = 13;
     // Parameters consist of a bias (intercept) for the sum and one weight for
     // each demand indicator.
@@ -43,10 +45,7 @@ public class DemandPrediction {
      * @return arrayList of 2 bounds
      */
     public static ArrayList<Double> bounds(){
-        //ArrayList<ArrayList<Double>> bnds = new ArrayList<>();
-        ArrayList<Double> bnds = new ArrayList<>(Arrays.asList(-100.0,100.0));
-        //for(int i = 0;i<N_PARAMETERS; i++){bnds.add(dim_bnd);}
-        return bnds;
+        return new ArrayList<>(Arrays.asList(-100.0,100.0));
     }
 
     /**
@@ -82,9 +81,6 @@ public class DemandPrediction {
         absolute_error /= X.size();
         return absolute_error;
     }
-
-    private List<ArrayList<Double>> X;
-    private List<Double> y;
 
     private void load_dataset(String file) throws IOException {
         ArrayList<Double> x = new ArrayList<>();

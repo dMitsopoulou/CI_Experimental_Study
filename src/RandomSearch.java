@@ -2,16 +2,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-/* A simple example of how the DemandPrediction class could be used as part
+/** A simple example of how the DemandPrediction class could be used as part
  * of a random search. It is not expected that you use this code as part of
  * your solution - it is just a demonstration of how the class's methods can be
  * called and how we can use two versions of the problem (here train and
  * test) to, respectively, obtain a promising set of parameters (using
  * train) and then to measure their performance (using test).
+ * @deprecated 05/12/2022
  */
 public class RandomSearch {
-    static Random r;
-    static ArrayList<Double> bounds;
+    private static Random r;
+    private static ArrayList<Double> bounds;
 
     public RandomSearch() throws IOException {
         var training_problem = new DemandPrediction("train");

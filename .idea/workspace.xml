@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d641669-9c27-4b12-a710-8da57ea7d1f9" name="Changes" comment="Corrected baselineMethod&#10;converted arrays to arrayLists in RandomSearch" />
+    <list default="true" id="4d641669-9c27-4b12-a710-8da57ea7d1f9" name="Changes" comment="Corrected baselineMethod&#10;converted arrays to arrayLists in RandomSearch">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/apache_commons_math3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NovelMethod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS3CI_Cwk_2022.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CS3CI_Cwk_2022.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BaselineMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BaselineMethod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DemandPrediction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DemandPrediction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RandomSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RandomSearch.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +39,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "true",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -40,9 +52,9 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -61,6 +73,12 @@
       <workItem from="1670084967587" duration="3026000" />
       <workItem from="1670176503645" duration="7089000" />
       <workItem from="1670199215497" duration="2612000" />
+      <workItem from="1670245604836" duration="6238000" />
+      <workItem from="1670341683134" duration="1561000" />
+      <workItem from="1670412565263" duration="587000" />
+      <workItem from="1670416176798" duration="594000" />
+      <workItem from="1670689156311" duration="916000" />
+      <workItem from="1670781582941" duration="1375000" />
     </task>
     <task id="LOCAL-00001" summary="Start">
       <created>1669671929340</created>
