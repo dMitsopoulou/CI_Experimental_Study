@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 /* A simple example of how the DemandPrediction class could be used as part
@@ -9,19 +10,22 @@ import java.util.Random;
  * train) and then to measure their performance (using test).
  */
 public class RandomSearch {
-    public static void RandomSearch() throws IOException {
+    static Random r;
+    static ArrayList<Double> bounds;
+
+    public RandomSearch() throws IOException {
         var training_problem = new DemandPrediction("train");
-        var bounds = DemandPrediction.bounds();
-        var r = new Random();
+        bounds = new ArrayList<>(DemandPrediction.bounds());
+        r = new Random();
 
         /* Generate N_TRIES random parameters and measure their MSE on the test
          * problem, saving the best parameters.
          */
         int N_TRIES = 100;
-        double[] best_parameters = random_parameters(bounds,r);
+        ArrayList<Double> best_parameters = random_parameters();
         double best_training_error = training_problem.evaluate(best_parameters);
         for (int i = 0; i < N_TRIES - 1; i++) {
-            var parameters = random_parameters(bounds,r);
+            ArrayList<Double> parameters = random_parameters();
             var training_error = training_problem.evaluate(parameters);
             if(training_error < best_training_error){
                 best_training_error = training_error;
@@ -38,10 +42,11 @@ public class RandomSearch {
                 "found while training: %f%n", test_error);
     }
 
-    public static double[] random_parameters(double[][] bounds, Random r){
-        var parameters = new double[bounds.length];
-        for (int j = 0; j < bounds.length; j++) {
-            parameters[j] = bounds[j][0] + r.nextDouble() * (bounds[j][1] - bounds[j][0]);
+    public static ArrayList<Double> random_parameters(){  //element of random search
+        ArrayList<Double> parameters = new ArrayList<>();
+        for (int j = 0; j < 14; j++) {      //14 parameters
+            //parameters[j] = bounds[j][0] + r.nextDouble() * (bounds[j][1] - bounds[j][0]);
+            parameters.add(bounds.get(0) + r.nextDouble() * (bounds.get(1) - bounds.get(0)));
         }
         return parameters;
     }

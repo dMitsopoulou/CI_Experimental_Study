@@ -4,9 +4,11 @@ import java.util.Random;
 public class Main {
 
     public static void RandomSearch(String[] args) throws IOException {
-        var training_problem = new DemandPrediction("train");
-        var bounds = DemandPrediction.bounds();
-        var r = new Random();
+        //var training_problem = new DemandPrediction("train");
+        //var bounds = DemandPrediction.bounds();
+        //var r = new Random();
+
+        DemandPrediction train_problem = new DemandPrediction("train");
 
 
 

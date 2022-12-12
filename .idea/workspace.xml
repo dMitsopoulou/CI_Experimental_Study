@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d641669-9c27-4b12-a710-8da57ea7d1f9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RandomSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="4d641669-9c27-4b12-a710-8da57ea7d1f9" name="Changes" comment="Corrected baselineMethod&#10;converted arrays to arrayLists in RandomSearch" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,9 +36,14 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "C:/Users/danai/Documents/CI/Experimental Study/CS3CI_Cwk_2022",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -55,8 +57,33 @@
       <workItem from="1669397872895" duration="1452000" />
       <workItem from="1669399840366" duration="1135000" />
       <workItem from="1669490239976" duration="1162000" />
-      <workItem from="1669559474353" duration="6027000" />
+      <workItem from="1669559474353" duration="8718000" />
+      <workItem from="1670084967587" duration="3026000" />
+      <workItem from="1670176503645" duration="7089000" />
+      <workItem from="1670199215497" duration="2612000" />
     </task>
+    <task id="LOCAL-00001" summary="Start">
+      <created>1669671929340</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1669671929340</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Corrected baselineMethod&#10;converted arrays to arrayLists in DemandPrediction">
+      <created>1670184361046</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1670184361046</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Corrected baselineMethod&#10;converted arrays to arrayLists in RandomSearch">
+      <created>1670201828792</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1670201828792</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -72,5 +99,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Start" />
+    <MESSAGE value="Corrected baselineMethod&#10;converted arrays to arrayLists in DemandPrediction" />
+    <MESSAGE value="Corrected baselineMethod&#10;converted arrays to arrayLists in RandomSearch" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected baselineMethod&#10;converted arrays to arrayLists in RandomSearch" />
   </component>
 </project>
