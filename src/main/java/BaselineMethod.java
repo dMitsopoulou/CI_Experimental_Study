@@ -1,4 +1,4 @@
-package main.java;
+//package main.java;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ public class BaselineMethod {
     static ArrayList<Double> candidateFitness;
     static ArrayList<ArrayList<Double>> survivors;
     static DemandPrediction train_problem;
+    static DemandPrediction test_problem;
     static int generations = 0;
 
     public BaselineMethod() throws IOException {
@@ -28,6 +29,7 @@ public class BaselineMethod {
         r = new Random();
 
         train_problem = new DemandPrediction("train");
+        //test_problem = new DemandPrediction("test");
 
         evoAlgorithm();
 

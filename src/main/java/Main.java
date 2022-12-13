@@ -1,4 +1,4 @@
-package main.java;
+//package main.java;
 
 import java.io.IOException;
 //import java.util.Random;
@@ -12,7 +12,7 @@ public class Main {
 
         //DemandPrediction train_problem = new DemandPrediction("train");
 
-        BaselineMethod baseline = new BaselineMethod();
+        //BaselineMethod baseline = new BaselineMethod();
         NovelMethod novel = new NovelMethod();
 
 

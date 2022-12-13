@@ -1,12 +1,10 @@
-package main.java;
-
 
 import org.apache.commons.math3.distribution.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import static java.lang.Math.abs;
 
 
 public class NovelMethod {
@@ -22,6 +20,7 @@ public class NovelMethod {
     static ArrayList<ArrayList<Double>> survivors;
     static DemandPrediction train_problem;
     static DemandPrediction test_problem;
+    private static final double STANDARD_DEVIATION = 0.1;
     static int generations = 0;
 
     public NovelMethod() throws IOException {
@@ -179,6 +178,33 @@ public class NovelMethod {
     }
 
     /**
+     * Uses the normal distribution 'Gaussian' method to get a number which is used to mutate every component
+     * of the solution.
+     * @param params the solution to mutate
+     */
+    public static void gaussianMutation(ArrayList<Double> params){
+        int randnum = r.nextInt(13);
+        double mutatedVal;
+        //for(int i=0; i<=params.size()-1;i++){
+            //set up distribution and get sample.
+            //the distribution sets the existing number as mean and a constant standard deviation
+            NormalDistribution distribution =  new NormalDistribution(params.get(randnum), STANDARD_DEVIATION  /*+ abs(params.get(i))*/);
+            mutatedVal = params.get(randnum) + distribution.sample();
+
+            //puts the number within bounds, if it is outside
+            if(mutatedVal > 100.0) mutatedVal = (mutatedVal/2) - (abs(mutatedVal - params.get(randnum)));
+            else if (mutatedVal < -100.0) mutatedVal = (mutatedVal/2) + (abs(mutatedVal - params.get(randnum)));
+
+            //replace into params
+            params.set(randnum, mutatedVal);
+
+
+
+
+        //children.set(children.indexOf(params), );
+    }
+
+    /**
      * Selects survivors that make it to the next generation
      * @param survivor tour to be evaluated
      */
@@ -248,7 +274,7 @@ public class NovelMethod {
 
             //mutate all offspring created
             for(int i =0; i<children.size();i++){
-
+                gaussianMutation(children.get(i));
                 survivorSelection(children.get(i)); //all children survive
             }
 
