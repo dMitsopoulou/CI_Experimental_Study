@@ -22,14 +22,16 @@ public class BaselineMethod {
     static ArrayList<ArrayList<Double>> survivors;
     static DemandPrediction train_problem;
     static DemandPrediction test_problem;
+    static double bestInRun = 400.0;
+    static double bestGen = 0;
     static int generations = 0;
 
     public BaselineMethod() throws IOException {
         bounds = new ArrayList<>(DemandPrediction.bounds());
         r = new Random();
 
-        train_problem = new DemandPrediction("train");
-        //test_problem = new DemandPrediction("test");
+        //train_problem = new DemandPrediction("train");
+        test_problem = new DemandPrediction("test");
 
         evoAlgorithm();
 
@@ -60,7 +62,7 @@ public class BaselineMethod {
      * @param fitArray list to put the results into
      */
     public static void evaluation(ArrayList<ArrayList<Double>> forEval, ArrayList<Double> fitArray){
-        for (ArrayList<Double> candidate: forEval){ fitArray.add(train_problem.evaluate(candidate)); } //ATTENTION
+        for (ArrayList<Double> candidate: forEval){ fitArray.add(test_problem.evaluate(candidate)); }
     }
 
 
@@ -204,7 +206,13 @@ public class BaselineMethod {
         for(Double fit: fitness){
             if(fit < bestFit) bestFit = fit;
         }
+         if(bestInRun > bestFit) {
+             bestInRun = bestFit;
+             bestGen = generations;
+         }
+
         System.out.println("Gen:" + generations + "fitness:" + bestFit);
+
 
     }
 
@@ -225,7 +233,7 @@ public class BaselineMethod {
         long end = start + 10 * 1000L;           //seconds - 2
 
         //while (System.currentTimeMillis() < end) {
-        while (generations <= 20){
+        while (generations < 20){
             generations++;
             // picks parents
             tournamentSelection(2,100);
@@ -241,11 +249,13 @@ public class BaselineMethod {
                 swapMutation(children.get(i));
                 survivorSelection(children.get(i)); //all children survive
             }
+            collectStats();
 
             nextGenSetup();
         }
+        System.out.println(bestInRun + " " + bestGen);
 
-        for(ArrayList<Double> candidate: population) System.out.println(candidate);
+        //for(ArrayList<Double> candidate: population) System.out.println(candidate);
 
     }
     //evolutionary alg method

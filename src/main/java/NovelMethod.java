@@ -20,15 +20,18 @@ public class NovelMethod {
     static ArrayList<ArrayList<Double>> survivors;
     static DemandPrediction train_problem;
     static DemandPrediction test_problem;
-    private static final double STANDARD_DEVIATION = 0.1;
+    //private static final double STANDARD_DEVIATION = 0.1;
+    static int maxGens = 20;
+    static double bestInRun = 400.0;
+    static double bestGen = 0;
     static int generations = 0;
 
     public NovelMethod() throws IOException {
         bounds = new ArrayList<>(DemandPrediction.bounds());
         r = new Random();
 
-        train_problem = new DemandPrediction("train");
-        //test_problem = new DemandPrediction("test");
+        //train_problem = new DemandPrediction("train");
+        test_problem = new DemandPrediction("test");
 
         evoAlgorithm();
 
@@ -59,7 +62,7 @@ public class NovelMethod {
      * @param fitArray list to put the results into
      */
     public static void evaluation(ArrayList<ArrayList<Double>> forEval, ArrayList<Double> fitArray){
-        for (ArrayList<Double> candidate: forEval){ fitArray.add(train_problem.evaluate(candidate)); } //ATTENTION
+        for (ArrayList<Double> candidate: forEval){ fitArray.add(test_problem.evaluate(candidate)); }
     }
 
 
@@ -183,12 +186,13 @@ public class NovelMethod {
      * @param params the solution to mutate
      */
     public static void gaussianMutation(ArrayList<Double> params){
+        double std_deviation = ((maxGens+0.1) - generations/10.0); //standard deviation decreases as gens progress
         int randnum = r.nextInt(13);
         double mutatedVal;
         //for(int i=0; i<=params.size()-1;i++){
             //set up distribution and get sample.
             //the distribution sets the existing number as mean and a constant standard deviation
-            NormalDistribution distribution =  new NormalDistribution(params.get(randnum), STANDARD_DEVIATION  /*+ abs(params.get(i))*/);
+            NormalDistribution distribution =  new NormalDistribution(params.get(randnum), std_deviation );
             mutatedVal = params.get(randnum) + distribution.sample();
 
             //puts the number within bounds, if it is outside
@@ -240,7 +244,13 @@ public class NovelMethod {
         for(Double fit: fitness){
             if(fit < bestFit) bestFit = fit;
         }
+        if(bestInRun > bestFit) {
+            bestInRun = bestFit;
+            bestGen = generations;
+        }
+
         System.out.println("Gen:" + generations + "fitness:" + bestFit);
+
 
     }
 
@@ -261,7 +271,7 @@ public class NovelMethod {
         long end = start + 10 * 1000L;           //seconds - 2
 
         //while (System.currentTimeMillis() < end) {
-        while (generations <= 20){
+        while (generations < maxGens){
             generations++;
             // picks parents
             tournamentSelection(2,100);
@@ -277,22 +287,13 @@ public class NovelMethod {
                 gaussianMutation(children.get(i));
                 survivorSelection(children.get(i)); //all children survive
             }
+            collectStats();
 
             nextGenSetup();
         }
 
-        for(ArrayList<Double> candidate: population) System.out.println(candidate);
+        System.out.println(bestInRun + " " + bestGen);
+        //for(ArrayList<Double> candidate: population) System.out.println(candidate);
 
     }
-    //evolutionary alg method
-    //initialise population with random candidate solutions
-    //Evaluate each candidate with cost function
-    //repeat until termination cond is satisfied
-    //select parents
-    //recombine pairs of parents
-    //mutate the resulting offspring
-    //evaluate individuals
-    //select individuals for next generation
-    //End\
-    //End
 }
