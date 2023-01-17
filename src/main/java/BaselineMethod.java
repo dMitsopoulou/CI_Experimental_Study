@@ -211,7 +211,7 @@ public class BaselineMethod {
              bestGen = generations;
          }
 
-        System.out.println("Gen:" + generations + "fitness:" + bestFit);
+        //System.out.println("Gen:" + generations + "fitness:" + bestFit);
 
 
     }
@@ -253,7 +253,7 @@ public class BaselineMethod {
 
             nextGenSetup();
         }
-        System.out.println(bestInRun + " " + bestGen);
+        System.out.println("Baseline" + bestInRun + " " + bestGen);
 
         //for(ArrayList<Double> candidate: population) System.out.println(candidate);
 

@@ -21,7 +21,7 @@ public class NovelMethod {
     static DemandPrediction train_problem;
     static DemandPrediction test_problem;
     //private static final double STANDARD_DEVIATION = 0.1;
-    static int maxGens = 20;
+    static int maxGens = 100; //set gen number
     static double bestInRun = 400.0;
     static double bestGen = 0;
     static int generations = 0;
@@ -249,7 +249,7 @@ public class NovelMethod {
             bestGen = generations;
         }
 
-        System.out.println("Gen:" + generations + "fitness:" + bestFit);
+        //System.out.println("Gen:" + generations + "fitness:" + bestFit);
 
 
     }
@@ -292,7 +292,7 @@ public class NovelMethod {
             nextGenSetup();
         }
 
-        System.out.println(bestInRun + " " + bestGen);
+        System.out.println("Novel: " + bestInRun + " " + bestGen);
         //for(ArrayList<Double> candidate: population) System.out.println(candidate);
 
     }
